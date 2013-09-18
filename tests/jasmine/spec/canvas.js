@@ -1,19 +1,20 @@
 define('canvas', ['jquery', 'crafty', 'pace'], function($, Crafty, pace) {
 	'use strict';
-	describe('pixelateCanvas imageSmoothing', function() {
 
-		var ctx;
-		beforeEach(function() {
-			Crafty.init();
-			Crafty.canvas.init();
-			ctx = Crafty.canvas.context;
-		});
-		afterEach(function() {
-			pace.pixelateCanvas(false);
-			Crafty.stop(true);
-		});
+	if (pace._imageSmoothing) {
+		describe('pixelateCanvas imageSmoothing', function() {
 
-		if (pace._imageSmoothing) {
+			var ctx;
+			beforeEach(function() {
+				Crafty.init();
+				Crafty.canvas.init();
+				ctx = Crafty.canvas.context;
+			});
+			afterEach(function() {
+				pace.pixelateCanvas(false);
+				Crafty.stop(true);
+			});
+
 			it('pixelateCanvas(true) should turn off imageSmoothing', function() {
 				pace.pixelateCanvas(true);
 				expect(pace._pixelated).toBe(true);
@@ -30,8 +31,8 @@ define('canvas', ['jquery', 'crafty', 'pace'], function($, Crafty, pace) {
 				expect(pace._pixelated).toBe(true);
 				expect(ctx[pace._imageSmoothing]).toBe(false);
 			});
-		}
-	});
+		});
+	}
 
 	describe('pixelateCanvas stage pixelated class', function() {
 		beforeEach(function() {
