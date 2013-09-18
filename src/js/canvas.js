@@ -1,4 +1,4 @@
-define('canvas', ['support'], function(support) {
+define('canvas', ['jquery', 'support'], function($, support) {
 	'use strict';
 
 	var isPixelated = false;
