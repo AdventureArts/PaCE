@@ -1,4 +1,5 @@
 define('pace', ['jquery', 'crafty'], function($, Crafty) {
+	'use strict';
 	console.log('pace loaded');
 
 	var prefixes = 'webkit moz o ms'.split(' '),
@@ -27,7 +28,10 @@ define('pace', ['jquery', 'crafty'], function($, Crafty) {
 				pace._pixelated = doPixelation;
 
 				$(Crafty.stage.elem)[(doPixelation ? 'add' : 'remove') + 'Class']('pixelated');
-				if (imageSmoothing) Crafty.canvas.context[imageSmoothing] = !doPixelation;
+
+				var ctx = Crafty.canvas.context;
+				//If browser supports canvas imageSmoothing and Crafty.canvas has been initialized
+				if (imageSmoothing && ctx) ctx[imageSmoothing] = !doPixelation;
 			}
 		}
 	};
