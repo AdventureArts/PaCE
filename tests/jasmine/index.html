@@ -1,0 +1,58 @@
+<!doctype html>
+<html>
+<head>
+	<title>Jasmine Spec Runner</title>
+
+	<link rel="shortcut icon" type="image/png" href="lib/jasmine-1.3.1/jasmine_favicon.png">
+	<link rel="stylesheet" type="text/css" href="lib/jasmine-1.3.1/jasmine.css">
+	<script src="lib/jasmine-1.3.1/jasmine.js"></script>
+	<script src="lib/jasmine-1.3.1/jasmine-html.js"></script>
+
+	<script src="../../src/js/lib/require-2.1.8.js"></script>
+
+
+	<script>
+	(function() {
+		var jasmineEnv = jasmine.getEnv();
+		jasmineEnv.updateInterval = 1000;
+
+		var htmlReporter = new jasmine.HtmlReporter();
+
+		jasmineEnv.addReporter(htmlReporter);
+
+		jasmineEnv.specFilter = function(spec) {
+			return htmlReporter.specFilter(spec);
+		};
+
+		var currentWindowOnload = window.onload;
+
+		window.onload = function() {
+			if (currentWindowOnload) {
+				currentWindowOnload();
+			}
+
+			require.config({
+				baseUrl: '../../src/js/'
+			});
+
+			require(['setup'], function() {
+				require(['pace'], function() {
+					require.config({
+						baseUrl: 'spec/'
+					});
+					var specs = ['canvas'];
+					require(specs, function () {
+						jasmineEnv.execute();
+					});
+				});
+			});
+		};
+
+	}());
+	</script>
+
+</head>
+
+<body>
+</body>
+</html>
