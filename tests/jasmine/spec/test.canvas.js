@@ -6,11 +6,9 @@ define('test.canvas', ['pace'], function(pace) {
 	if (pace.support._imageSmoothing) {
 		describe('canvas.pixelate imageSmoothing', function() {
 
-			var ctx;
 			beforeEach(function() {
 				Crafty.init();
 				Crafty.canvas.init();
-				ctx = Crafty.canvas.context;
 			});
 			afterEach(function() {
 				pace.canvas.pixelate(false);
@@ -19,7 +17,7 @@ define('test.canvas', ['pace'], function(pace) {
 
 			function runExpectations(doPixelation) {
 				expect(pace.canvas.getPixelated()).toBe(doPixelation);
-				expect(ctx[pace.support._imageSmoothing]).toBe(!doPixelation);
+				expect(Crafty.canvas.context[pace.support._imageSmoothing]).toBe(!doPixelation);
 			}
 
 			it('pixelate(true) should turn off imageSmoothing', function() {
@@ -33,6 +31,36 @@ define('test.canvas', ['pace'], function(pace) {
 			});
 			it('pixelate() with no args should turn off imageSmoothing', function() {
 				pace.canvas.pixelate();
+				runExpectations(true);
+			});
+		});
+
+		describe('pixelated setting persistency', function() {
+			afterEach(function() {
+				pace.canvas.pixelate(false);
+				Crafty.stop(true);
+			});
+
+			function runExpectations(doPixelation) {
+				expect(Crafty.canvas.context[pace.support._imageSmoothing]).toBe(!doPixelation);
+			}
+
+			it('pixelate(true) should persist after re-instantiating canvas', function() {
+				Crafty.init();
+				Crafty.canvas.init();
+				pace.canvas.pixelate(true);
+				Crafty.stop(true);
+
+				Crafty.init();
+				Crafty.canvas.init();
+
+				runExpectations(true);
+			});
+			it('pixelate(true) before canvas.init() should persist', function() {
+				pace.canvas.pixelate(true);
+				Crafty.init();
+				Crafty.canvas.init();
+
 				runExpectations(true);
 			});
 		});
