@@ -4,7 +4,6 @@ define('canvas', ['jquery', 'crafty', 'support'], function($, Crafty, support) {
 	var isPixelated = false;
 
 	function pixelateCraftyCanvas(doPixelation) {
-		//console.log(doPixelation);
 		//If browser supports canvas 2d context.imageSmoothingEnabled, set it to the opposite of doPixelation
 		if (support._imageSmoothing) Crafty.canvas.context[support._imageSmoothing] = !doPixelation;
 	}
@@ -21,9 +20,9 @@ define('canvas', ['jquery', 'crafty', 'support'], function($, Crafty, support) {
 	extendCanvasInit();
 
 	var craftyStop = Crafty.stop;
-	Crafty.stop = function() {
+	Crafty.stop = function(clearState) {
 		craftyStop.apply(this, arguments);
-		extendCanvasInit();
+		if (clearState) extendCanvasInit();
 	};
 
 
