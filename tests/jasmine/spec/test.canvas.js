@@ -38,7 +38,7 @@ define('test.canvas', ['pace'], function(pace) {
 		});
 	}
 
-	describe('canvas.pixelate stage pixelated class', function() {
+	describe('canvas.pixelate <body> pace-pixelated class', function() {
 		beforeEach(function() {
 			Crafty.init();
 		});
@@ -48,19 +48,19 @@ define('test.canvas', ['pace'], function(pace) {
 		});
 
 		function runExpectations(doPixelation) {
-			expect($(Crafty.stage.elem).hasClass('pixelated')).toBe(doPixelation);
+			expect($(document.body).hasClass('pace-pixelated')).toBe(doPixelation);
 		}
 
-		it('pixelate(true) should add pixelated class to stage', function() {
+		it('pixelate(true) should add pixelated class to body', function() {
 			pace.canvas.pixelate(true);
 			runExpectations(true);
 		});
-		it('pixelate(false) should remove pixelated class from stage', function() {
+		it('pixelate(false) should remove pixelated class from body', function() {
 			pace.canvas.pixelate(true);
 			pace.canvas.pixelate(false);
 			runExpectations(false);
 		});
-		it('pixelate() with no args should add pixelated class to stage', function() {
+		it('pixelate() with no args should add pixelated class to body', function() {
 			pace.canvas.pixelate();
 			runExpectations(true);
 		});

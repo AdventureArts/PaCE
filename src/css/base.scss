@@ -1,4 +1,10 @@
-.pixelated canvas {
+@import "lib/_normalize-2.1.3";
+
+#cr-stage {
+	margin: 0 auto;
+}
+
+.pace-pixelated #cr-stage canvas {
 	-ms-interpolation-mode: nearest-neighbor;
 	image-rendering: -moz-crisp-edges;
 	image-rendering: -webkit-optimize-contrast;
